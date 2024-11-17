@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Add New Recipe</title>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!------ Include the above in your HEAD tag ---------->
+
+  <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div class="container" style="margin-top: -80px;">
+
+    <h1 style="text-align: center"></h1>
+
+    <h1 style="display: flex; justify-content: center; margin-top: 150px;">Add New Recipe</h1>
+
+    <div class="row">
+      <div class="col-md-5 mx-auto">
+        <div id="first">
+
+          <form action="/recipes" method="POST" name="addNewRecipes">
+            <!-- this is the localhost:3000 path without any thing will transfer you to the form action -->
+            <br>
+            <br>
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" name="name" class="form-control" id="name" 
+                placeholder="Enter Your New Recipe Name">
+            </div>
+            <br>
+            <div class="form-group">
+              <label for="Owner">Owner</label>
+              <input type="text" name="Owner" class="form-control" id="Owner"
+                placeholder="Enter The Owner">
+            </div>
+            <br>
+            <div class="form-group">
+              <label for="instruction">instruction</label>
+              <input type="text" name="instruction" class="form-control" id="instruction"
+                placeholder="Enter The Instruction">
+            </div>
+            <br>
+            <div class="form-group">
+              <label for="Ingredient">Ingredients</label>
+              <input type="text" name="Ingredient" id="Ingredient" class="form-control"
+                placeholder="Enter Your Password">
+            </div>
+            <br>
+            <div class="col-md-14 text-center">
+              <button type="submit" style="font-size: 25px;" class=" btn btn-block mybtn btn-primary tx-tfm">Add</button>
+            </div>
+
+            
+        </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  </div>
+</body>
+
+</html>

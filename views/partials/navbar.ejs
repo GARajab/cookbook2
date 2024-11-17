@@ -1,0 +1,15 @@
+<link rel="stylesheet" href="/css/style.css">
+<nav>
+  <div class="navbar">
+    <h1 id="nav-header" style="color: #17a2bf">CookBook</h1>
+    <div class="nav-links">
+      <% if (user) { %>
+      <a href="/users/<%= user._id %>/applications">Your Meals</a>
+      <a href="/auth/sign-out">Sign Out</a>
+      <% } else { %>
+      <a href="/auth/sign-in" class="sign">Sign In</a>
+      <a href="/auth/sign-up">Sign Up</a>
+      <% } %>
+    </div>
+  </div>
+</nav>
