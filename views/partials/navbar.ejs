@@ -1,11 +1,10 @@
-<link rel="stylesheet" href="/css/style.css">
 <nav>
   <div class="navbar">
     <h1 id="nav-header" style="color: #17a2bf">CookBook</h1>
     <div class="nav-links">
-      <% if (user) { %>
-      <a href="/users/<%= user._id %>/applications">Your Meals</a>
+      <% if (user) { %> <!-- Check if the user is authenticated -->
       <a href="/auth/sign-out">Sign Out</a>
+      <a href="/recipes/show">Home</a> <!-- Adjusted to go to the root route for recipes -->
       <% } else { %>
       <a href="/auth/sign-in" class="sign">Sign In</a>
       <a href="/auth/sign-up">Sign Up</a>

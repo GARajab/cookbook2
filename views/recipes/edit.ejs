@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit <%= recipes.name %></title>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body style="height: 100vh;">
+  <div class="container" style="margin-top: -80px;">
+    <h1 style="text-align: center">Edit A Recipes!</h1>
+    <h1 style="display: flex; justify-content: center; margin-top: 40px;">Add New Recipe</h1>
+    <div class="row">
+      <div class="col-md-5 mx-auto">
+        <div id="first">
+         <form action="/recipes/<%= recipes._id %>?_method=PUT" method="POST">
+            <div class="form-group">
+              <label for="nameOfRecipe">Name</label>
+              <input type="text" name="nameOfRecipe" class="form-control" id="nameOfRecipe" 
+                placeholder="Enter Your New Recipe Name" value="<%= recipes.nameOfRecipe %>">
+            </div>
+            <br>
+            <div class="form-group">
+              <label for="instruction">Instruction</label>
+              <input type="text" name="instruction" class="form-control" id="instruction"
+                placeholder="Enter The Instruction" value="<%= recipes.instruction %>">
+            </div>
+            <div class="col-md-14 text-center">
+              <button type="submit" style="font-size: 25px;" class=" btn btn-block mybtn btn-primary tx-tfm">Update Recipe</button>
+            </div>
+            <br>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  </div>
+</body>
+</html>

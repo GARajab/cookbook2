@@ -38,13 +38,8 @@ app.set("view engine", "ejs"); // Set EJS as the default view engine
 
 // require("controller")
 app.use(passUserToView);
-// app.use("/auth", authController);
-// app.use(isSignedIn);
-// app.use("/recipes", recipesController);
-// app.use("/ingredients", ingredientsController);
 
 // require("routes")
-// const authRouter = require("./routes/auth");
 app.use("/auth", authRouter);
 // const recipesRouter = require("./routes/recipes.js");
 app.use("/recipes", recipesRouter);
@@ -62,7 +57,6 @@ app.use((req, res, next) => {
 app.get("/", async (req, res) => {
   res.render("auth/sign-in.ejs");
 });
-
 
 app.listen(port, () => {
   console.log(`localhost:${port}`);

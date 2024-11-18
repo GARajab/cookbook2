@@ -9,7 +9,7 @@ const index = async (req, res) => {
   try {
     const populatedRecipes = await Recipes.find({}).populate("owner");
     console.log("Populated Recipes: ", populatedRecipes);
-    res.render("recipes/index.ejs", { listings: populatedRecipes });
+    res.render("recipes/index.ejs", { recipes: populatedRecipes });
   } catch (err) {
     console.log(err);
     res.redirect("/");
@@ -25,24 +25,26 @@ const createRecipe = async (req, res) => {
 
   // Check if user is authenticated
   if (!req.session.user) {
-      return res.status(401).send("Unauthorized: Please log in.");
+    return res.status(401).send("Unauthorized: Please log in.");
   }
 
   req.body.owner = req.session.user._id;
+  req.body.ingredients = req.session.user._id;
 
   try {
-      await Recipes.create(req.body);
-      res.redirect("/recipes");
+    const newRecipe = await Recipes.create(req.body); // Ensure `Recipe` model is imported correctly
+    console.log("New Recipe Created:", newRecipe);
+    res.redirect("/recipes");
   } catch (error) {
-      console.log(error);
-      res.status(500).send("Error creating recipe.");
+    console.log("Error creating recipe:", error);
+    res.status(500).send("Error creating recipe.");
   }
 };
 
 const editRecipes = async (req, res) => {
   try {
     const currentRecipe = await Recipes.findById(req.params.recipeId);
-    res.render("../recipes/edit.ejs", {
+    res.render("recipes/edit.ejs", {
       recipes: currentRecipe,
     });
   } catch (error) {
@@ -54,13 +56,6 @@ const editRecipes = async (req, res) => {
 const updateRecipes = async (req, res) => {
   try {
     const currentRecipe = await Recipes.findById(req.params.recipeId);
-    if (!currentRecipe) {
-      res.status(404).send("Recipe not found.");
-      return;
-    }
-    if (!currentRecipe.owner.equals(req.session.user._id)) {
-      return res.status(403).send("You don't have permission to do that.");
-    }
     await currentRecipe.updateOne(req.body);
     res.redirect("/recipes");
   } catch (error) {
@@ -71,18 +66,11 @@ const updateRecipes = async (req, res) => {
 
 const deleteRecipes = async (req, res) => {
   try {
-    const currentRecipe = await Recipes.findById(req.params.recipeId);
-    if (!currentRecipe) {
-      res.status(404).send("Recipe not found.");
-      return;
-    }
-    if (!currentRecipe.owner.equals(req.session.user._id)) {
-      return res.status(403).send("You don't have permission to do that.");
-    }
-    await currentRecipe.deleteOne();
+    const recipes = await Recipes.findById(req.params.recipeId);
+    await recipes.deleteOne();
     res.redirect("/recipes");
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.redirect("/");
   }
 };
@@ -99,6 +87,45 @@ const getById = async (req, res) => {
     res.redirect("/");
   }
 };
+
+const showRecipes = async (req, res) => {
+  try {
+    const populatedRecipes = await Recipes.find({}).populate("owner");
+    res.render("recipes/show.ejs", { recipes: populatedRecipes }); // Render a views file called show.ejs
+  } catch (err) {
+    console.log(err);
+    res.redirect("/");
+  }
+};
+
+const showUsersList = async (req, res) => {
+  try {
+    const allUsers = await User.find({}, "username");
+
+    res.render("recipes/usersList.ejs", { users: allUsers });
+  } catch (err) {
+    console.log(err);
+    res.redirect("/");
+  }
+};
+const otherUsersRecipes = async (req, res) => {
+  try {
+    // Get the userId from the query parameters
+    const userId = req.query.userId;
+
+    // Find all recipes for that user
+    const allUsersRecipes = await Recipes.find({ owner: userId }).populate(
+      "owner"
+    );
+
+    // Render the otherUsersRecipes.ejs view with the recipes
+    res.render("recipes/otherUsersRecipes.ejs", { recipes: allUsersRecipes });
+  } catch (err) {
+    console.log(err);
+    res.redirect("/");
+  }
+};
+
 module.exports = {
   newRecipe,
   deleteRecipes,
@@ -107,4 +134,7 @@ module.exports = {
   getById,
   createRecipe,
   index,
+  showRecipes,
+  showUsersList,
+  otherUsersRecipes,
 };
